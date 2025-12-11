@@ -1,4 +1,18 @@
-import axios from 'axios';
+import https from 'https';
+
+function makeRequest(method, hostname, path, headers, body) {
+  return new Promise((resolve, reject) => {
+    const options = { method, hostname, path, headers };
+    const req = https.request(options, (res) => {
+      let data = '';
+      res.on('data', chunk => data += chunk);
+      res.on('end', () => resolve({ status: res.statusCode, data: JSON.parse(data) }));
+    });
+    req.on('error', reject);
+    if (body) req.write(JSON.stringify(body));
+    req.end();
+  });
+}
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -18,31 +32,24 @@ export default async function handler(req, res) {
     }
 
     if (type === 'article') {
-      // Generate article using OpenAI
-      const response = await axios.post(
-        'https://api.openai.com/v1/chat/completions',
-        {
-          model: 'gpt-4',
-          messages: [
-            {
-              role: 'system',
-              content: 'You are a professional content writer. Write high-quality, SEO-optimized articles.',
-            },
-            {
-              role: 'user',
-              content: `Write a comprehensive article about: ${prompt}. Include introduction, main sections, and conclusion.`,
-            },
-          ],
-          max_tokens: 2000,
-          temperature: 0.7,
-        },
-        {
-          headers: {
-            'Authorization': `Bearer ${openaiKey}`,
-            'Content-Type': 'application/json',
-          },
-        }
-      );
+      const body = {
+        model: 'gpt-4',
+        messages: [
+          { role: 'system', content: 'You are a professional content writer. Write high-quality, SEO-optimized articles.' },
+          { role: 'user', content: `Write a comprehensive article about: ${prompt}. Include introduction, main sections, and conclusion.` },
+        ],
+        max_tokens: 2000,
+        temperature: 0.7,
+      };
+
+      const response = await makeRequest('POST', 'api.openai.com', '/v1/chat/completions', {
+        'Authorization': `Bearer ${openaiKey}`,
+        'Content-Type': 'application/json',
+      }, body);
+
+      if (response.status !== 200) {
+        throw new Error(response.data.error?.message || 'OpenAI API error');
+      }
 
       const content = response.data.choices[0].message.content;
       return res.status(200).json({
@@ -52,23 +59,22 @@ export default async function handler(req, res) {
         tokens: response.data.usage.total_tokens,
       });
     } else if (type === 'image') {
-      // Generate image using DALL-E
-      const response = await axios.post(
-        'https://api.openai.com/v1/images/generations',
-        {
-          model: 'dall-e-3',
-          prompt: prompt,
-          n: 1,
-          size: '1024x1024',
-          quality: 'standard',
-        },
-        {
-          headers: {
-            'Authorization': `Bearer ${openaiKey}`,
-            'Content-Type': 'application/json',
-          },
-        }
-      );
+      const body = {
+        model: 'dall-e-3',
+        prompt: prompt,
+        n: 1,
+        size: '1024x1024',
+        quality: 'standard',
+      };
+
+      const response = await makeRequest('POST', 'api.openai.com', '/v1/images/generations', {
+        'Authorization': `Bearer ${openaiKey}`,
+        'Content-Type': 'application/json',
+      }, body);
+
+      if (response.status !== 200) {
+        throw new Error(response.data.error?.message || 'OpenAI API error');
+      }
 
       const imageUrl = response.data.data[0].url;
       return res.status(200).json({
@@ -80,10 +86,10 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: 'Invalid type. Use "article" or "image"' });
     }
   } catch (error) {
-    console.error('AI generation error:', error.response?.data || error.message);
+    console.error('AI generation error:', error.message);
     return res.status(500).json({
       error: 'Failed to generate content',
-      details: error.response?.data?.error?.message || error.message,
+      details: error.message,
     });
   }
 }
