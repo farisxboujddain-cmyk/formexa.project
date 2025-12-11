@@ -18,20 +18,22 @@ const GenerateSection = ({ profile, onGenerated }) => {
     }
 
     setLoading(true)
+    setResult(null)
     try {
       let response
       if (activeType === 'article') {
-        response = await aiAPI.generateArticle(prompt, title, saveProject)
+        response = await aiAPI.generateArticle(prompt)
       } else if (activeType === 'image') {
-        response = await aiAPI.generateImage(prompt, '1024x1024', saveProject)
+        response = await aiAPI.generateImage(prompt)
       } else {
-        response = await aiAPI.generateCode(prompt, 'javascript', saveProject)
+        response = await aiAPI.generateCode(prompt)
       }
 
       setResult(response.data)
-      onGenerated()
+      onGenerated?.()
     } catch (error) {
-      alert('Generation failed: ' + (error.response?.data?.error || error.message))
+      console.error('Generation error:', error)
+      alert('Generation failed: ' + (error.response?.data?.error || error.response?.data?.details || error.message))
     } finally {
       setLoading(false)
     }
@@ -108,13 +110,36 @@ const GenerateSection = ({ profile, onGenerated }) => {
           {activeType === 'article' && (
             <div className="article-result">
               <p>{result.content}</p>
+              <button onClick={() => {
+                const el = document.createElement('textarea')
+                el.value = result.content
+                document.body.appendChild(el)
+                el.select()
+                document.execCommand('copy')
+                document.body.removeChild(el)
+                alert('Copied to clipboard!')
+              }} style={{marginTop: '10px'}}>
+                📋 Copy Text
+              </button>
             </div>
           )}
-          {activeType === 'image' && (
-            <img src={result.imageUrl} alt="Generated" />
+          {activeType === 'image' && result.imageUrl && (
+            <div className="image-result">
+              <img src={result.imageUrl} alt="Generated" style={{maxWidth: '100%', borderRadius: '8px'}} />
+              <button onClick={() => {
+                const link = document.createElement('a')
+                link.href = result.imageUrl
+                link.download = 'generated-image.png'
+                link.click()
+              }} style={{marginTop: '10px'}}>
+                ⬇️ Download Image
+              </button>
+            </div>
           )}
           {activeType === 'code' && (
-            <pre><code>{result.code}</code></pre>
+            <pre style={{background: '#f5f5f5', padding: '10px', borderRadius: '5px', overflowX: 'auto'}}>
+              <code>{result.content}</code>
+            </pre>
           )}
         </div>
       )}

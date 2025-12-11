@@ -1,6 +1,8 @@
 import axios from 'axios'
 
-const API_BASE = '/api'
+const API_BASE = process.env.NODE_ENV === 'production' 
+  ? 'https://formexa-oazfzv2a0-farisxboujddain-cmyks-projects.vercel.app/api'
+  : '/api'
 
 const client = axios.create({ baseURL: API_BASE })
 
@@ -21,12 +23,12 @@ export const authAPI = {
 }
 
 export const aiAPI = {
-  generateArticle: (prompt, title, saveProject) =>
-    client.post('/ai/generate-article', { prompt, title, saveProject }),
-  generateImage: (prompt, size, saveProject) =>
-    client.post('/ai/generate-image', { prompt, size, saveProject }),
-  generateCode: (prompt, language, saveProject) =>
-    client.post('/ai/generate-code', { prompt, language, saveProject })
+  generateArticle: (prompt) =>
+    client.post('/generate', { type: 'article', prompt }),
+  generateImage: (prompt) =>
+    client.post('/generate', { type: 'image', prompt }),
+  generateCode: (prompt) =>
+    client.post('/generate', { type: 'code', prompt })
 }
 
 export const paypalAPI = {
