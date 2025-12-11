@@ -2,7 +2,13 @@ import https from 'https';
 
 function makeRequest(method, hostname, path, headers, body) {
   return new Promise((resolve, reject) => {
-    const options = { method, hostname, path, headers };
+    const bodyStr = body ? JSON.stringify(body) : '';
+    const finalHeaders = { ...headers };
+    if (bodyStr) {
+      finalHeaders['Content-Length'] = Buffer.byteLength(bodyStr);
+    }
+    
+    const options = { method, hostname, path, headers: finalHeaders };
     const req = https.request(options, (res) => {
       let data = '';
       res.on('data', chunk => data += chunk);
@@ -15,7 +21,7 @@ function makeRequest(method, hostname, path, headers, body) {
       });
     });
     req.on('error', reject);
-    if (body) req.write(JSON.stringify(body));
+    if (bodyStr) req.write(bodyStr);
     req.end();
   });
 }
