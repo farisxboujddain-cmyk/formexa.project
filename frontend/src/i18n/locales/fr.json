@@ -1,0 +1,97 @@
+{
+  "common": {
+    "appName": "Formexa",
+    "tagline": "Plateforme de génération de contenu alimentée par l'IA",
+    "pricing": "Tarification",
+    "dashboard": "Tableau de bord",
+    "logout": "Déconnexion",
+    "login": "Connexion",
+    "register": "S'inscrire",
+    "email": "E-mail",
+    "password": "Mot de passe",
+    "name": "Nom complet",
+    "subscribe": "S'abonner",
+    "upgrade": "Mettre à niveau",
+    "cancel": "Annuler",
+    "save": "Enregistrer",
+    "delete": "Supprimer",
+    "edit": "Modifier",
+    "generate": "Générer",
+    "loading": "Chargement...",
+    "error": "Erreur",
+    "success": "Succès",
+    "monthly": "Mensuel",
+    "yearly": "Annuel",
+    "language": "Langue",
+    "english": "English",
+    "arabic": "العربية",
+    "french": "Français"
+  },
+  "pricing": {
+    "title": "Choisissez votre forfait",
+    "description": "Sélectionnez le forfait qui correspond à vos besoins",
+    "free": {
+      "name": "Gratuit",
+      "price": "$0",
+      "period": "/mois",
+      "features": [
+        "5 articles/mois",
+        "2 images/mois",
+        "5 extraits de code/mois",
+        "Support communautaire",
+        "Tableau de bord basique"
+      ]
+    },
+    "pro": {
+      "name": "Pro",
+      "price": "$9.99",
+      "period": "/mois",
+      "features": [
+        "100 articles/mois",
+        "50 images/mois",
+        "100 extraits de code/mois",
+        "Support par e-mail",
+        "Analyses avancées",
+        "Organisation des projets"
+      ]
+    },
+    "business": {
+      "name": "Entreprise",
+      "price": "$29.99",
+      "period": "/mois",
+      "features": [
+        "Articles illimités",
+        "Images illimitées",
+        "Extraits de code illimités",
+        "Support prioritaire",
+        "Collaboration d'équipe",
+        "Intégrations personnalisées",
+        "Accès API"
+      ]
+    }
+  },
+  "dashboard": {
+    "title": "Bienvenue sur votre tableau de bord",
+    "overview": "Aperçu",
+    "projects": "Projets",
+    "settings": "Paramètres",
+    "usage": "Statistiques d'utilisation",
+    "subscriptionStatus": "Statut de l'abonnement",
+    "currentPlan": "Plan actuel",
+    "renewalDate": "Date de renouvellement",
+    "generateArticle": "Générer un article",
+    "generateImage": "Générer une image",
+    "generateCode": "Générer du code",
+    "myProjects": "Mes projets",
+    "noProjects": "Pas de projets pour le moment. Commencez à générer du contenu!",
+    "prompt": "Demande",
+    "title": "Titre",
+    "save": "Enregistrer le projet",
+    "preview": "Aperçu"
+  },
+  "footer": {
+    "email": "E-mail: formexatech@gmail.com",
+    "github": "GitHub: https://github.com/farisxboujddain-cmyk",
+    "copyright": "© 2024 Formexa. Tous droits réservés."
+  }
+}

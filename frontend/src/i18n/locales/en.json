@@ -1,0 +1,97 @@
+{
+  "common": {
+    "appName": "Formexa",
+    "tagline": "AI-Powered Content Generation Platform",
+    "pricing": "Pricing",
+    "dashboard": "Dashboard",
+    "logout": "Logout",
+    "login": "Login",
+    "register": "Register",
+    "email": "Email",
+    "password": "Password",
+    "name": "Full Name",
+    "subscribe": "Subscribe",
+    "upgrade": "Upgrade",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "generate": "Generate",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "monthly": "Monthly",
+    "yearly": "Yearly",
+    "language": "Language",
+    "english": "English",
+    "arabic": "العربية",
+    "french": "Français"
+  },
+  "pricing": {
+    "title": "Choose Your Plan",
+    "description": "Select the plan that fits your needs",
+    "free": {
+      "name": "Free",
+      "price": "$0",
+      "period": "/month",
+      "features": [
+        "5 articles/month",
+        "2 images/month",
+        "5 code snippets/month",
+        "Community support",
+        "Basic dashboard"
+      ]
+    },
+    "pro": {
+      "name": "Pro",
+      "price": "$9.99",
+      "period": "/month",
+      "features": [
+        "100 articles/month",
+        "50 images/month",
+        "100 code snippets/month",
+        "Email support",
+        "Advanced analytics",
+        "Project organization"
+      ]
+    },
+    "business": {
+      "name": "Business",
+      "price": "$29.99",
+      "period": "/month",
+      "features": [
+        "Unlimited articles",
+        "Unlimited images",
+        "Unlimited code snippets",
+        "Priority support",
+        "Team collaboration",
+        "Custom integrations",
+        "API access"
+      ]
+    }
+  },
+  "dashboard": {
+    "title": "Welcome to Your Dashboard",
+    "overview": "Overview",
+    "projects": "Projects",
+    "settings": "Settings",
+    "usage": "Usage Statistics",
+    "subscriptionStatus": "Subscription Status",
+    "currentPlan": "Current Plan",
+    "renewalDate": "Renewal Date",
+    "generateArticle": "Generate Article",
+    "generateImage": "Generate Image",
+    "generateCode": "Generate Code",
+    "myProjects": "My Projects",
+    "noProjects": "No projects yet. Start generating content!",
+    "prompt": "Prompt",
+    "title": "Title",
+    "save": "Save Project",
+    "preview": "Preview"
+  },
+  "footer": {
+    "email": "Email: formexatech@gmail.com",
+    "github": "GitHub: https://github.com/farisxboujddain-cmyk",
+    "copyright": "© 2024 Formexa. All rights reserved."
+  }
+}

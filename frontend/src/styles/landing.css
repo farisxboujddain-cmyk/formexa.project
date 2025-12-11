@@ -1,0 +1,153 @@
+.navbar {
+  background: white;
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.navbar-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.nav-menu {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+}
+
+.language-switcher {
+  display: flex;
+  gap: 8px;
+}
+
+.language-switcher button {
+  padding: 4px 8px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: white;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.language-switcher button.active {
+  background: var(--primary);
+  color: white;
+}
+
+.menu-toggle {
+  display: none;
+  background: none;
+  color: var(--text);
+  font-size: 24px;
+}
+
+@media (max-width: 768px) {
+  .nav-menu {
+    position: absolute;
+    top: 60px;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    gap: 10px;
+    background: white;
+    padding: 20px;
+    border-bottom: 1px solid var(--border);
+    display: none;
+  }
+
+  .nav-menu.open {
+    display: flex;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+}
+
+.hero {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+  color: white;
+  padding: 80px 20px;
+  text-align: center;
+}
+
+.hero h2 {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+.hero p {
+  font-size: 20px;
+  margin-bottom: 32px;
+  opacity: 0.9;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.hero-buttons .btn-primary {
+  background: white;
+  color: var(--primary);
+  font-weight: 700;
+}
+
+.hero-buttons .btn-secondary {
+  background: transparent;
+  color: white;
+  border: 2px solid white;
+}
+
+.features {
+  padding: 60px 20px;
+}
+
+.features h2 {
+  text-align: center;
+  margin-bottom: 40px;
+  font-size: 36px;
+}
+
+.features .card {
+  text-align: center;
+}
+
+.features .card h3 {
+  font-size: 20px;
+  margin-bottom: 12px;
+}
+
+.footer {
+  background: var(--bg-light);
+  border-top: 1px solid var(--border);
+  padding: 40px 20px;
+  text-align: center;
+  color: var(--text-light);
+}
+
+.footer p {
+  margin: 8px 0;
+}
+
+html[dir="rtl"] {
+  .navbar-content {
+    flex-direction: row-reverse;
+  }
+
+  .nav-menu {
+    flex-direction: row-reverse;
+  }
+}

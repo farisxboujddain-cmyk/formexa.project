@@ -1,0 +1,41 @@
+.auth-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: var(--bg-light);
+}
+
+.auth-form {
+  max-width: 400px;
+  width: 100%;
+}
+
+.auth-form h1 {
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.auth-form form {
+  margin-bottom: 24px;
+}
+
+.auth-form .btn-primary {
+  width: 100%;
+}
+
+.auth-link {
+  text-align: center;
+  color: var(--text-light);
+}
+
+.auth-link a {
+  color: var(--primary);
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .auth-form {
+    margin: 20px;
+  }
+}
