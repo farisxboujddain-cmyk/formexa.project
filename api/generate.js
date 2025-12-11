@@ -6,7 +6,13 @@ function makeRequest(method, hostname, path, headers, body) {
     const req = https.request(options, (res) => {
       let data = '';
       res.on('data', chunk => data += chunk);
-      res.on('end', () => resolve({ status: res.statusCode, data: JSON.parse(data) }));
+      res.on('end', () => {
+        try {
+          resolve({ status: res.statusCode, data: data ? JSON.parse(data) : {}, rawData: data });
+        } catch (e) {
+          resolve({ status: res.statusCode, data: null, rawData: data, parseError: e.message });
+        }
+      });
     });
     req.on('error', reject);
     if (body) req.write(JSON.stringify(body));
@@ -47,8 +53,14 @@ export default async function handler(req, res) {
         'Content-Type': 'application/json',
       }, body);
 
+      if (response.parseError) {
+        console.error('JSON parse error:', response.parseError, 'Raw:', response.rawData);
+        throw new Error(`OpenAI response parse error: ${response.parseError}`);
+      }
+
       if (response.status !== 200) {
-        throw new Error(response.data.error?.message || 'OpenAI API error');
+        console.error('OpenAI error response:', response.status, response.data);
+        throw new Error(response.data?.error?.message || `OpenAI error (${response.status})`);
       }
 
       const content = response.data.choices[0].message.content;
@@ -72,8 +84,14 @@ export default async function handler(req, res) {
         'Content-Type': 'application/json',
       }, body);
 
+      if (response.parseError) {
+        console.error('JSON parse error:', response.parseError, 'Raw:', response.rawData);
+        throw new Error(`OpenAI response parse error: ${response.parseError}`);
+      }
+
       if (response.status !== 200) {
-        throw new Error(response.data.error?.message || 'OpenAI API error');
+        console.error('OpenAI error response:', response.status, response.data);
+        throw new Error(response.data?.error?.message || `OpenAI error (${response.status})`);
       }
 
       const imageUrl = response.data.data[0].url;
