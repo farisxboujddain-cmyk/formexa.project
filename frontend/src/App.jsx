@@ -29,9 +29,9 @@ function App() {
         <Route
           path="/dashboard/*"
           element={
-            
+            <ProtectedRoute>
               <DashboardPage />
-            
+            </ProtectedRoute>
           }
         />
         <Route path="*" element={<Navigate to="/" />} />
