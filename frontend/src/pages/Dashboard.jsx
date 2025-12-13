@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import GenerateSection from '../components/GenerateSection'
+import ProjectsPage from './ProjectsPage'
 import '../styles/dashboard.css'
 
 const DashboardPage = () => {
@@ -25,6 +26,12 @@ const DashboardPage = () => {
             onClick={() => setActiveTab('generate')}
           >
             🤖 AI Generator
+          </button>
+          <button
+            className={`nav-btn ${activeTab === 'projects' ? 'active' : ''}`}
+            onClick={() => setActiveTab('projects')}
+          >
+            📁 My Projects
           </button>
           <button
             className={`nav-btn ${activeTab === 'about' ? 'active' : ''}`}
@@ -68,6 +75,12 @@ const DashboardPage = () => {
         {activeTab === 'generate' && (
           <div className="tab-content">
             <GenerateSection />
+          </div>
+        )}
+
+        {activeTab === 'projects' && (
+          <div className="tab-content">
+            <ProjectsPage />
           </div>
         )}
 
