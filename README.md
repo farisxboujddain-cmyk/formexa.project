@@ -187,10 +187,34 @@ formexa/
 3) **Webhook Configuration**
    - In PayPal dashboard, set webhook URL to: `https://your-app.vercel.app/api/paypal/webhook`
 
-### Docker (Optional)
+### Docker
+
+This project is fully configured to run in a Docker environment, which is the recommended way for local development.
+
+#### Prerequisites
+- Docker
+- Docker Compose
+
+#### Running the Application
+1.  **Configure Environment:**
+    -   Copy the `.env.example` file to `.env`: `cp .env.example .env`.
+    -   Update the `.env` file with your credentials.
+    -   **Important:** When using Docker, you must change the `MONGODB_URI` to point to the Docker container: `MONGODB_URI=mongodb://mongo:27017/formexa`.
+
+2.  **Start the application:**
+    ```bash
+    docker-compose up --build
+    ```
+    This command will build the Docker image and start the backend server, frontend server, and MongoDB database.
+
+3.  **Access the application:**
+    -   Application: http://localhost:3000
+    -   API Documentation: http://localhost:3000/api/docs
+
+#### Stopping the Application
+To stop the application and remove the containers, run:
 ```bash
-docker build -t formexa .
-docker run -p 3000:3000 --env-file .env formexa
+docker-compose down
 ```
 
 ## Testing
